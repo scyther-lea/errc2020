@@ -1,0 +1,50 @@
+/*
+* Four-party Generalized Needham-Schroeder protocol
+*/
+// The protocol description
+protocol 4GNSL(Alice, Bob, Charles, David)
+{
+	role Alice {
+		fresh nonceA: Nonce;
+		var nonceB, nonceC, nonceD: Nonce;
+	
+		send_11(Alice,Bob, {nonceA, Alice,Charles,David}pk(Bob));
+		
+		recv_14(David,Alice, {nonceA,nonceB,nonceC,nonceD, Bob,Charles,David}pk(Alice));
+		
+		send_21(Alice,Bob, {nonceB,nonceC,nonceD}pk(Bob));
+	}
+	
+	role Bob {
+		fresh nonceB: Nonce;
+		var nonceA, nonceC, nonceD: Nonce;
+	
+		recv_11(Alice,Bob, {nonceA, Alice,Charles,David}pk(Bob));
+		send_12(Bob,Charles, {nonceA,nonceB, Alice,Bob,David}pk(Charles));
+		
+		recv_21(Alice,Bob, {nonceB,nonceC,nonceD}pk(Bob));
+		send_22(Bob,Charles, {nonceC,nonceD}pk(Charles));
+	}
+	
+	role Charles {
+		fresh nonceC: Nonce;
+		var nonceA, nonceB, nonceD: Nonce;
+		
+		recv_12(Bob,Charles, {nonceA,nonceB, Alice,Bob,David}pk(Charles));
+		send_13(Charles,David, {nonceA,nonceB,nonceC, Alice,Bob,Charles}pk(David));
+		
+		recv_22(Bob,Charles, {nonceC,nonceD}pk(Charles));
+		
+		send_23(Charles,David, {nonceD}pk(David));
+	}
+	
+	role David {
+		fresh nonceD: Nonce;
+		var nonceA, nonceB, nonceC: Nonce;
+		
+		recv_13(Charles,David, {nonceA,nonceB,nonceC, Alice,Bob,Charles}pk(David));
+		send_14(David,Alice, {nonceA,nonceB,nonceC,nonceD, Bob,Charles,David}pk(Alice));
+		
+		recv_23(Charles,David, {nonceD}pk(David));
+	}
+}

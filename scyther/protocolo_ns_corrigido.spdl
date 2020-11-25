@@ -1,0 +1,27 @@
+const pk: Function;
+secret sk: Function;
+inversekeys (pk,sk);
+const Eve: Agent;
+untrusted Eve;
+protocol NS(Alice,Bob,Eve){
+  role Alice{
+    fresh nonceA: Nonce;
+    var nonceB: Nonce;
+    send_1(Alice,Bob,{Alice,nonceA}pk(Bob));
+    recv_2(Bob,Alice,{nonceA,nonceB,Bob}pk(Alice));
+    send_3(Alice,Bob,{nonceB}pk(Bob));
+    claim(Alice,Secret,nonceA);
+    claim(Alice,Secret,nonceB);
+    claim(Alice,Nisynch);
+  }
+  role Bob{
+    var nonceA: Nonce;
+    fresh nonceB: Nonce;
+    recv_1(Alice,Bob,{Alice,nonceA}pk(Bob));
+    send_2(Bob,Alice,{nonceA,nonceB,Bob}pk(Alice));
+    recv_3(Alice,Bob,{nonceB}pk(Bob));
+    claim(Bob,Secret,nonceA);
+    claim(Bob,Secret,nonceB);
+    claim(Bob,Nisynch);
+  }
+}

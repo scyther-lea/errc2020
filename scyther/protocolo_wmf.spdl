@@ -1,0 +1,29 @@
+usertype SessionKey;
+usertype TimeStamp;
+
+const Fresh: Function;
+
+protocol WMF(Alice,Bob,Charles){
+  role Alice{
+    fresh Kab: SessionKey;
+    fresh Ta: TimeStamp;
+    send_1(Alice,Charles,Alice,{Alice,Ta,Bob,Kab}k(Alice,Charles));
+    claim_Alice1(Alice,Secret,Kab);
+    claim_Alice2(Alice,Empty,(Fresh,Kab));
+  }
+  role Bob{
+    var Tc: TimeStamp;
+    var Kab: SessionKey;
+    recv_2(Charles,Bob,{Charles,Tc,Alice,Kab}k(Bob,Charles));
+    claim_Bob1(Bob,Secret,Kab); 
+    claim_Bob2(Bob,Nisynch);
+    claim_Bob3(Bob,Empty,(Fresh,Kab));
+  }
+  role Charles{
+    var Kab: SessionKey;
+    fresh Tc: TimeStamp;
+    var Ta: TimeStamp;
+    recv_1( Alice,Charles,Alice,{Alice,Ta,Bob,Kab}k(Alice,Charles));
+    send_2(Charles,Bob,{Charles,Tc,Alice,Kab}k(Bob,Charles));
+  }
+}

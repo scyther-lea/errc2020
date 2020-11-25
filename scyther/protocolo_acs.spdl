@@ -1,0 +1,18 @@
+secret K: SessionKey;
+const Eve: Agent;
+untrusted Eve;
+
+protocol ACS(Alice,Bob,Eve){
+  role Alice{
+    fresh nonce: Nonce;
+    send_1(Alice,Bob,{nonce}K(Alice,Bob)); 
+    claim_Alice1(Alice,Secret,nonce);
+    claim_Alice2(Alice,Secret,K);
+  }
+  role Bob{
+    var nonce: Nonce;
+    recv_1(Alice,Bob,{nonce}K(Alice,Bob)); 
+    claim_Bob1(Bob,Secret,nonce);
+    claim_Bob2(Bob,Secret,K);
+  } 
+}

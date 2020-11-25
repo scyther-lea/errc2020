@@ -1,0 +1,42 @@
+usertype SessionKey;
+usertype TimeStamp;
+usertype ExpiredTimeStamp;
+const succ,pred: Function;
+inversekeys (succ,pred);
+const Fresh: Function;
+const Compromised: Function;
+
+protocol WMF-Lowe(Alice,Bob,Charles){
+  role Alice{
+    fresh Kab: SessionKey;
+    fresh Ta: TimeStamp;
+    var nonceB: Nonce;
+
+    send_1(Alice,Charles,Alice,{Ta,Bob,Kab}k(Alice,Charles));
+    recv_3(Bob,Alice,{nonceB}Kab);
+    send_4(Alice,Bob,{{nonceB}succ}Kab);
+
+    claim_Alice1(Alice,Secret,Kab);
+    claim_Alice2(Alice,Nisynch);
+    claim_Alice3(Alice,Empty,(Fresh,Kab));
+  }
+  role Bob{
+    var Tc: TimeStamp;
+    var Ta: TimeStamp;
+    var Kab: SessionKey;
+    fresh nonceB: Nonce;
+    recv_2(Charles,Bob,{Tc,Alice,Kab}k(Bob,Charles));
+    send_3(Bob,Alice,{nonceB}Kab);
+    recv_4(Alice,Bob,{{nonceB}succ}Kab);
+    claim_Bob1(Bob,Secret,Kab); 
+    claim_Bob2(Bob,Nisynch);
+    claim_Bob3(Bob,Empty,(Fresh,Kab));
+  }
+  role Charles{
+    var Kab: SessionKey;
+    fresh Tc: TimeStamp;
+    var Ta: TimeStamp;
+    recv_1(Alice,Charles,Alice,{Ta,Bob,Kab}k(Alice,Charles));
+    send_2(Charles,Bob,{Tc,Alice,Kab}k(Bob,Charles));
+  }
+}
