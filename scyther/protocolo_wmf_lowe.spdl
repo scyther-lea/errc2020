@@ -21,9 +21,8 @@ protocol WMF-Lowe(Alice,Bob,Charles){
     claim_Alice3(Alice,Empty,(Fresh,Kab));
   }
   role Bob{
-    var Tc: TimeStamp;
-    var Ta: TimeStamp;
     var Kab: SessionKey;
+    var Tc: TimeStamp;
     fresh nonceB: Nonce;
     recv_2(Charles,Bob,{Tc,Alice,Kab}k(Bob,Charles));
     send_3(Bob,Alice,{nonceB}Kab);
