@@ -69,15 +69,12 @@ def hash_nova_chave(chave_secreta, nonce):
 def servidor(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
 
     sock = socket.socket(socket.AF_INET,  socket.SOCK_STREAM)
-    
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    
     endereco_servidor = (ip, porta)
     
     print ("inciando servidor no IP %s e PORTA %s" % endereco_servidor)
     
     sock.bind(endereco_servidor)
-    
     sock.listen(5)
     
     print ("aguardando conexao do cliente ... ")
@@ -102,7 +99,9 @@ def servidor(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
             if (hmac_da_msg == hmac_gerado):
                 mensagem_cifrada = base64.b64decode(mensagem_cifrada)
                 nonce = aes_decifrar(chave_secreta, mensagem_cifrada)
+
                 print ("[" + entidade + ":" + str(i) + "] nonce: " + nonce)
+
                 chave_secreta = hash_nova_chave(chave_secreta, nonce)
                 chave_secreta = aes_atualiza_chave(chave_secreta)
             else:
@@ -116,7 +115,6 @@ def servidor(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
 def cliente(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
     endereco_servidor = (ip, porta)
 
     print("conectando ao servidor no %s porta %s" % endereco_servidor)
@@ -124,6 +122,7 @@ def cliente(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
     sock.connect(endereco_servidor)
     
     for i in range(n_trocas_de_chave):
+
         nonce = gera_nonce_32hex()
 
         print ("[" + entidade + ":" + str(i) + "] chave: " + chave_secreta)
@@ -141,6 +140,7 @@ def cliente(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
         print ("[" + entidade + ":" + str(i) + "] hmac: " + hmac_mensagem)
 
         sock.sendall(mensagem + b' ' + hmac_mensagem.encode('utf-8'))
+
         chave_secreta = hash_nova_chave(chave_secreta, nonce)
         chave_secreta = aes_atualiza_chave(chave_secreta)
 
