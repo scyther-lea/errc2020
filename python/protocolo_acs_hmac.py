@@ -7,7 +7,7 @@
 # Serve para ilustrar a complexidade entre a especificacao,
 # verificacao e implementacao. A implementacacao deveria,
 # tambem, passar por uma verificacao de codigo.
-# 
+#
 # Implementacao testada no Debian 10 e Python 3.7.3.
 #
 # Nao ha nenhum tipo de garantia com relacao a este codigo.
@@ -24,14 +24,17 @@ import secrets
 from Crypto.Cipher import AES
 import base64, os
 
-char_de_padding = "{"
+char_de_padding = "{"   # char utilizado para padding
+padding_e_secrets = 16  # 16 bytes ou multiplo de 16 bytes
+bytes_da_mensagem = 109 # nonce cifrado + HMAC
 
 def uso():
     print("Uso: " + sys.argv[0] + " <ip> <porta> <servidor|cliente> <Alice|Bob> <chave_secreta> <n_trocas_de_chave>")
     sys.exit(-1)
 
 def gera_nonce_32hex():
-    return secrets.token_hex(16)
+    global padding_e_secrets
+    return secrets.token_hex(padding_e_secrets)
 
 def aes_decifrar(chave_secreta, mensagem_cifrada):
     global char_de_padding
@@ -43,16 +46,18 @@ def aes_decifrar(chave_secreta, mensagem_cifrada):
 
 def aes_cifrar(chave_secreta, mensagem):
     global char_de_padding
+    global padding_e_secrets
     cipher = AES.new(chave_secreta)
-    mensagem_com_padding = mensagem + (char_de_padding * ((16-len(mensagem)) % 16))
+    mensagem_com_padding = mensagem + (char_de_padding * ((padding_e_secrets-len(mensagem)) % padding_e_secrets))
     mensagem_cifrada = cipher.encrypt(mensagem_com_padding)
     return mensagem_cifrada
 
 def aes_atualiza_chave(chave_secreta):
-    if len(chave_secreta) < 16:
-        chave_secreta = chave_secreta + (char_de_padding * ((16-len(chave_secreta)) % 16))
+    global padding_e_secrets
+    if len(chave_secreta) < padding_e_secrets:
+        chave_secreta = chave_secreta + (char_de_padding * ((padding_e_secrets-len(chave_secreta)) % padding_e_secrets))
     else:
-        chave_secreta = chave_secreta[:16]
+        chave_secreta = chave_secreta[:padding_e_secrets]
     return chave_secreta
 
 def hash_nova_chave(chave_secreta, nonce):
@@ -81,7 +86,7 @@ def servidor(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
 
     for i in range(n_trocas_de_chave):
 
-        mensagem = cliente.recv(109)
+        mensagem = cliente.recv(bytes_da_mensagem)
         mensagem = mensagem.decode('utf-8')
 
         if mensagem:
