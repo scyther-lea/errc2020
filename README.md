@@ -8,3 +8,5 @@ e
 
 V Workshop Regional de Segurança da Informação e de Sistemas Computacionais (WRSeg 2020)
 
+https://errc.sbc.org.br/2020/
+
