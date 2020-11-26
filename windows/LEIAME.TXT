@@ -1,0 +1,3 @@
+
+Este diretório contém resultados das verificações (e diagramas dos ataques) na versão 1.1.3 da Scyther, executando no Windows.
+
