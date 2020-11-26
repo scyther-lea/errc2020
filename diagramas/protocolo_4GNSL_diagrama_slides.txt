@@ -1,0 +1,7 @@
+Alice->Bob: 1. ++Envia++ ++**nonceA**++
+Bob->Charles: 2. ++Envia++ ++**nonceA**++, ++**nonceB**++
+Charles->David: 3. ++Envia++ ++**nonceA**++, ++**nonceB**++, ++**nonceC**++
+David->Alice: 4. ++Envia++ ++**nonceA**++, ++**nonceB**++, ++**nonceC**++, ++**nonceD**++
+Alice->Bob: 5. ++Envia++ ++**nonceB**++, ++**nonceC**++, ++**nonceD**++
+Bob->Charles: 6. ++Envia++ ++**nonceC**++, ++**nonceD**++
+Charles->David: 7. ++Envia++ ++**nonceD**++
