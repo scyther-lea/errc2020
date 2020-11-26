@@ -1,0 +1,20 @@
+rbox over Alice: **Nonce** nonceA
+Alice->Bob: {Alice,nonceA}pk{Bob}
+
+rbox over Bob: **Nonce** nonceB
+Alice->Bob: {nonceA,nonceB,Bob}pk{Alice}
+
+Alice->Bob: {nonceB}pk{Bob}
+
+parallel 
+abox over Alice: **Secret** nonceA
+abox over Bob: **Secret** nonceA
+parallel end
+
+parallel 
+abox over Alice: **Secret** nonceB
+abox over Bob: **Secret** nonceB
+parallel end
+
+
+

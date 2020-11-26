@@ -1,0 +1,6 @@
+rbox over Alice: Gera o **nonceA**
+Alice->Bob: 1. Envia o **nonceA**
+rbox over Bob: Gera o **nonceB**
+Alice<-Bob: 2. Envia o **nonceB** e o **nonceA** (recebido)
+note over Alice,Bob: 3. Geram a **nova chave compartilhada** a partir dos nonces
+Alice<-->Bob: Utilizam a **nova chave compartilha** 

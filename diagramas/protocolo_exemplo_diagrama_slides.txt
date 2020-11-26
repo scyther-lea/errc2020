@@ -1,0 +1,4 @@
+Alice->Bob: 1. Envia o **nonceA**
+Alice<-Bob: 2. Envia o **nonceB** e o **nonceA** (recebido)
+note over Alice,Bob: 3. Geram a **nova chave compartilhada** a partir dos nonces
+Alice<-->Bob: Utilizam a **nova chave compartilha** 

@@ -1,0 +1,5 @@
+rbox over Alice: Gera **Kab** e **Ta**
+Alice->Charles: 1. Envia nova chave **Kab** e timestamp **Ta**
+rbox over Charles: Decifra e gera **Tc**
+Charles->Bob: 2. Encaminha nova chave **Kab** e timestamp **Tc**
+Bob<-->Alice: Utilizam a **nova chave** simétrica **Kab**

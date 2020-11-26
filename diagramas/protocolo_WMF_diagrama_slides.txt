@@ -1,0 +1,7 @@
+participant Alice
+participantgroup #lightyellow **Trusted**
+participant Charles
+end
+Alice->Charles: 1. Envia **Kab** e **Ta**  
+Charles->Bob:   2. Envia **Kab** e **Tc**
+note over Bob,Alice: Utilizam a **nova chave** simétrica **Kab**

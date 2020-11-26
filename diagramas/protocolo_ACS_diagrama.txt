@@ -1,0 +1,4 @@
+note over Alice,Bob: Entram em **acordo** sobre a **chave secreta** (compartilhada) inicial
+Alice->Bob: 1. Envia um novo **nonce**
+note over Alice,Bob: Atualizam a **chave secreta** compartilhada
+Bob<-->Alice: Utilizam a **nova chave secreta** (chave simétrica da sessão)

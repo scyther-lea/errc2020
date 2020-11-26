@@ -1,0 +1,7 @@
+Alice->Bob: 1. Envia **nonceA**
+Bob->Charles: 2. Envia **nonceA** e **nonceB**
+Charles->David: 3. Envia **nonceA**, **nonceB** e **nonceC**
+David->Alice: 4. Envia **nonceA**, **nonceB**, **nonceC** e **nonceD**
+Alice->Bob: 5. Envia **nonceB**, **nonceC** e **nonceD**
+Bob->Charles: 6. Envia **nonceC** e **nonceD**
+Charles->David: 7. Envia **nonceD**

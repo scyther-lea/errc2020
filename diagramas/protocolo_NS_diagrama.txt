@@ -1,0 +1,6 @@
+rbox over Alice: Gera o **nonceA**
+Alice->Bob: 1. Envia o **nonceA**
+rbox over Bob: Gera o **nonceB**
+Alice<-Bob: 2. Envia o **nonceB** e o **nonceA** (recebido)
+Alice->Bob: 3. Envia o **nonceB** 
+note over Alice,Bob: **Autenticação concluída** entre Alice e Bob

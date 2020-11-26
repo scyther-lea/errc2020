@@ -1,0 +1,21 @@
+participant Alice
+participant Bob
+participant Charles
+
+participant David
+
+Alice->Bob:{na, Alice,Charles,David}pk(Bob))
+
+Bob->Charles:{na,nb, Alice,Bob,David}pk(Charles))
+
+Charles->David:{na,nb,nc, Alice,Bob,Charles}pk(David))
+
+David->Alice: {na,nb,nc,nd, Bob,Charles,David}pk(Alice))
+
+note right of Alice:Resolve desafio
+Alice->Bob:{nb,nc,nd}pk(Bob))
+note right of Bob:Resolve desafio
+Bob->Charles:{nc,nd}pk(Charles))
+note right of Charles:Resolve desafio
+Charles->David:{nd}pk(David))
+note left of David:Resolve desafio
