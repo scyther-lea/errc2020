@@ -1,10 +1,8 @@
 usertype SessionKey;
 usertype TimeStamp;
-usertype ExpiredTimeStamp;
 const succ,pred: Function;
 inversekeys (succ,pred);
 const Fresh: Function;
-const Compromised: Function;
 
 protocol WMF-Lowe(Alice,Bob,Charles){
   role Alice{
@@ -19,6 +17,7 @@ protocol WMF-Lowe(Alice,Bob,Charles){
     claim_Alice1(Alice,Secret,Kab);
     claim_Alice2(Alice,Nisynch);
     claim_Alice3(Alice,Empty,(Fresh,Kab));
+    claim_Alice4(Alice,Secret,nonceB);
   }
   role Bob{
     var Kab: SessionKey;
@@ -30,6 +29,7 @@ protocol WMF-Lowe(Alice,Bob,Charles){
     claim_Bob1(Bob,Secret,Kab); 
     claim_Bob2(Bob,Nisynch);
     claim_Bob3(Bob,Empty,(Fresh,Kab));
+    claim_Bob4(Bob,Secret,nonceB);
   }
   role Charles{
     var Kab: SessionKey;
