@@ -1,6 +1,5 @@
 usertype SessionKey;
 usertype TimeStamp;
-
 const Fresh: Function;
 
 protocol WMF(Alice,Bob,Charles){
@@ -9,7 +8,8 @@ protocol WMF(Alice,Bob,Charles){
     fresh Ta: TimeStamp;
     send_1(Alice,Charles,Alice,{Alice,Ta,Bob,Kab}k(Alice,Charles));
     claim_Alice1(Alice,Secret,Kab);
-    claim_Alice2(Alice,Empty,(Fresh,Kab));
+    claim_Alice2(Alice,Nisynch);
+    claim_Alice3(Alice,Empty,(Fresh,Kab));
   }
   role Bob{
     var Tc: TimeStamp;
