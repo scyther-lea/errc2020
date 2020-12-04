@@ -3,7 +3,7 @@ secret sk: Function;
 inversekeys (pk,sk);
 const Eve: Agent;
 untrusted Eve;
-protocol NS(Alice,Bob,Eve){
+protocol NSL(Alice,Bob,Eve){
   role Alice{
     fresh nonceA: Nonce;
     var nonceB: Nonce;
