@@ -32,7 +32,7 @@ def uso():
     print("Uso: " + sys.argv[0] + " <ip> <porta> <servidor|cliente> <Alice|Bob> <chave_secreta> <n_trocas_de_chave>")
     sys.exit(-1)
 
-def gera_nonce_32hex():
+def gera_nonce_32b_hex():
     global padding_e_secrets
     return secrets.token_hex(padding_e_secrets)
 
@@ -123,7 +123,7 @@ def cliente(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
     
     for i in range(n_trocas_de_chave):
 
-        nonce = gera_nonce_32hex()
+        nonce = gera_nonce_32b_hex()
 
         print ("[" + entidade + ":" + str(i) + "] chave: " + chave_secreta)
         print ("[" + entidade + ":" + str(i) + "] nonce: " + nonce)
