@@ -103,7 +103,6 @@ def servidor(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
                 print ("[" + entidade + ":" + str(i) + "] nonce: " + nonce)
 
                 chave_secreta = hash_nova_chave(chave_secreta, nonce)
-                chave_secreta = aes_atualiza_chave(chave_secreta)
             else:
                 print ("[" + entidade + ":" + str(i) + "] ERRO no verificacao do HMAC")
         else:
@@ -142,7 +141,6 @@ def cliente(ip, porta, entidade, chave_secreta, n_trocas_de_chave):
         sock.sendall(mensagem + b' ' + hmac_mensagem.encode('utf-8'))
 
         chave_secreta = hash_nova_chave(chave_secreta, nonce)
-        chave_secreta = aes_atualiza_chave(chave_secreta)
 
         print (" ")
 
