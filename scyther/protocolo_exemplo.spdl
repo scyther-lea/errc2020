@@ -5,21 +5,21 @@ const Eve: Agent;
 untrusted Eve;
 protocol exemplo(Alice,Bob,Eve){
   role Alice{
-    fresh nA: Nonce;
-    var nB: Nonce;
-    send_1(Alice,Bob,{Alice,nA}pk(Bob));
-    recv_2(Bob,Alice,{Alice,Bob,nA,nB}pk(Alice));
-    claim(Alice,Secret,nA);
-    claim(Alice,Secret,nB);
+    fresh nonceA: Nonce;
+    var nonceB: Nonce;
+    send_1(Alice,Bob,{Alice,nonceA}pk(Bob));
+    recv_2(Bob,Alice,{Alice,Bob,nonceA,nonceB}pk(Alice));
+    claim(Alice,Secret,nonceA);
+    claim(Alice,Secret,nonceB);
     claim(Alice,Nisynch);
   }
   role Bob{
-    var nA: Nonce;
-    fresh nB: Nonce;
-    recv_1(Alice,Bob,{Alice,nA}pk(Bob));
-    send_2(Bob,Alice,{Alice,Bob,nA,nB}pk(Alice)); 
-    claim(Bob,Secret,nA);
-    claim(Bob,Secret,nB);
+    var nonceA: Nonce;
+    fresh nonceB: Nonce;
+    recv_1(Alice,Bob,{Alice,nonceA}pk(Bob));
+    send_2(Bob,Alice,{Alice,Bob,nonceA,nonceB}pk(Alice)); 
+    claim(Bob,Secret,nonceA);
+    claim(Bob,Secret,nonceB);
     claim(Bob,Nisynch);
   }
 }
